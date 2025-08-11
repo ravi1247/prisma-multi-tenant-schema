@@ -1,0 +1,64 @@
+{
+    "name": "prisma-multi-tenant-schema",
+    "version": "1.0.0",
+    "description": "Multi-tenant database architecture using Prisma + PostgreSQL schemas",
+    "main": "src/server.ts",
+    "type": "module",
+    "keywords": [
+        "prisma",
+        "multi-tenant",
+        "postgresql",
+        "saas",
+        "database",
+        "schema"
+    ],
+    "author": "Ravi Kumar Meena",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/prisma-multi-tenant-schema.git"
+    },
+    "scripts": {
+        "start": "tsx src/server.ts",
+        "dev": "tsx watch src/server.ts",
+        "dev:nodemon": "nodemon",
+        "build": "tsc",
+        "prisma:generate": "npm run prisma:generate:shared && npm run prisma:generate:tenant",
+        "prisma:generate:shared": "prisma generate --schema=./prisma-shared/schema.prisma",
+        "prisma:generate:tenant": "prisma generate --schema=./prisma-tenant/schema.prisma",
+        "prisma:migrate:shared": "prisma migrate dev --schema=./prisma-shared/schema.prisma",
+        "prisma:sql:tenant": "prisma migrate diff --from-empty --to-schema-datamodel ./prisma-tenant/schema.prisma --script > ./tenant-migrations/schema.sql",
+        "migrations:apply:all": "tsx src/examples/apply-migrations.ts",
+        "org:create": "tsx src/examples/create-organization.ts",
+        "test": "jest",
+        "test:watch": "jest --watch"
+    },
+    "dependencies": {
+        "@prisma/client": "^6.12.0",
+        "bcrypt": "^5.1.1",
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.0",
+        "express": "^5.1.0",
+        "google-auth-library": "^10.2.0",
+        "jsonwebtoken": "^9.0.2",
+        "nodemailer": "^6.9.0",
+        "pg": "^8.16.3",
+        "uuid": "^11.1.0"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^5.0.2",
+        "@types/cors": "^2.8.17",
+        "@types/express": "^5.0.3",
+        "@types/jest": "^29.0.0",
+        "@types/jsonwebtoken": "^9.0.8",
+        "@types/node": "^24.0.14",
+        "@types/nodemailer": "^6.4.17",
+        "jest": "^29.0.0",
+        "nodemon": "^3.1.10",
+        "prisma": "^6.12.0",
+        "ts-jest": "^29.0.0",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.20.3",
+        "typescript": "^5.8.3"
+    }
+}
